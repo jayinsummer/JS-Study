@@ -61,7 +61,7 @@
       student.name = '철수'
       student.hobby = '악기'
       delete student.hobby
-      //또는 delete student[hobby]
+      //또는 delete student['hobby']
       /*
       <결과>
       {
