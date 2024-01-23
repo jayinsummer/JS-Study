@@ -41,6 +41,7 @@
       ```javascript
       const student = {}
       student.name = '철수'
+      //또는 student['name'] = '철수'
       student.hobby = '악기'
       /*
       <결과>
@@ -60,6 +61,7 @@
       student.name = '철수'
       student.hobby = '악기'
       delete student.hobby
+      //또는 delete student[hobby]
       /*
       <결과>
       {
