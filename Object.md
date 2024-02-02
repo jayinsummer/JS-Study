@@ -69,3 +69,41 @@
       }
       */
       ```
+
+## 객체의 속성과 메소드
+1. 기본 자료형 -> 객체 자료형
+   1) 기본 자료형을 객체로 선언하는 법
+      const 객체 = new 객체 자료형 이름()
+      * 예시
+        - new Number(10)
+        - new String('안녕하세요')
+        - new Boolean(true)
+      => 이런 식으로 변환하면 속성과 메소드 모두 활용 가능
+   2) 기본 자료형의 일시적 승급
+      : JS는 기본 자료형의 속성과 메소드를 호출할 때, 즉 기본 자료형 뒤에 온점을 찍고 무언가 하려고 하면
+        일시적으로 기본 자료형을 객체로 승급시킴.
+      => 속성 추가 가능. 그러나 일시적 승급이기 때문에 추가됐던 속성은 바로 사라짐
+      * 예시
+        ```javascript
+        const h = '안녕하세요' // undefined
+        h.sample = 10 // 10 -> 속성 추가 가능
+        h.sample // undefined -> 그러나 재호출 시 이미 사라짐
+        ```
+   3) prototype으로 메소드 추가하기
+      : prototype 객체에 속성과 메소드 추가 -> 모든 객체&기본 자료형에서 해당 속성과 메소드 사용 가능
+      * 사용법: 자료형 이름.prototype.메소드 이름 = function () {...}
+      * 예시1
+        ```javascript
+        // 숫자 자료형에 n제곱하는 메소드 추가하기
+        Number.prototype.power = function (n=2) {
+           return this.valueOf() ** n
+        }
+        const a = 12
+        console.log('a.power():', a.power()) // 제곱
+        console.log('a.power(3):', a.power(3)) // 세 제곱
+        console.log('a.power(4):', a.power(4)) // 네 제곱
+        ```
+      * 예시2
+        ```javascript
+        // 문자열과 배열의 indexOf() 메소드
+        ```
