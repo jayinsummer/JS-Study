@@ -103,7 +103,49 @@
         console.log('a.power(3):', a.power(3)) // 세 제곱
         console.log('a.power(4):', a.power(4)) // 네 제곱
         ```
-      * 예시2
+      * 예시2 - 문자열과 배열이 indexOf() 메소드
         ```
-        // 문자열과 배열의 indexOf() 메소드
+        // 문자열의 indexOf() 메소드
+        const j = '안녕하세요'
+        j.indexOf('안녕') > 0 출력
+        => 인덱스를 출력. 문자열 내에 없는 문자열이라면 -1 출력
+        // 배열의 indexOf() 메소드
+        const k = [1, 2, 3]
+        k.indexOf(2) > 2의 인덱스인 1을 출력한다
+        => 역시나 배열 내에 없는 요소라면 -1 출력
         ```
+
+
+4. Number 객체
+   1) toFixed(): 소수점 이하 N번째 자리까지만 출력하기 - 반올림 법칙 적용
+      * 예시
+        ```
+        const l = 123.15392
+        console.log(l.toFixed(2)) > 123.15
+        // 두 번째 자리의 5 > 세 번째 자리의 3 => 반올림 법칙에 따라 그대로 놔두기
+        console.log(l.toFixed(3)) > 123.154
+        // 세 번재 자리의 3 < 네 번째 자리의 9 => 반올림 법칙에 따라 3을 4로 올림 -> ~.154
+        console.log(l.toFixed(4)) > 123.1539
+        // 네 번째 자리의 9 > 다섯번째 자리의 2 => 반올림 법칙에 따라 그대로 놔두기
+        ```
+   2) NaN과 Infinity 확인
+      * Number.isNaN(변수..) => 숫자가 아닌가?
+        * 예시
+          ```
+          const m = Number('숫자 변환 불가')
+          // m === NaN
+          Number.isNaN(m) > true
+          ```
+        * 비교 연산자로 비교 불가
+      * Number.isFinite(변수..) => 유한한 숫자인가?
+        * 예시
+          ```
+          const n = 10/0 > 양의 무한대
+          const o = -10/0 > 음의 무한대
+          Number.isFinite(n) > false
+          Number.isFinite(o) > false
+          Number.isFinite(1) > true
+          Number.isFinite(10) > true
+          ```
+        * 비교 연산자로 비교 가능
+          ex) n === Infinity || n === -Infinity > true
