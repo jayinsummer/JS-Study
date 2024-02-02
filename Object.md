@@ -104,6 +104,6 @@
         console.log('a.power(4):', a.power(4)) // 네 제곱
         ```
       * 예시2
-        ```javascript
+        ```
         // 문자열과 배열의 indexOf() 메소드
         ```
