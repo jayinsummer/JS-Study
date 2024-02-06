@@ -322,3 +322,168 @@
         // 가격이 낮은 순으로 출력된다
       </script>
       ```
+
+## 객체와 배열 고급
+1. 속성 존재 여부 확인: undefined를 활용해서 확인한다
+   1) 예시: ```object.name !== defined```
+      => 이런 식의 조건을 활용한 조건문을 만들어 확인
+
+2. 배열 기반의 다중 할당
+   : 최신 JS에서 한 번에 여러 개의 변수에 값을 할당하는 기능
+   1) 사용법: ```[식별자, 식별자, 식별자, ...] = 배열```
+   2) 예시
+      ```
+      let [a, b] = [1, 2] > a=1, b=2 할당
+      [a, b] = [b, a] > a에 b가 할당, b에 a가 할당 -> 서로 값이 교환됨
+      ```
+
+3. 객체 기반의 다중 할당
+   : 객체 내부에 있는 속성을 꺼내서 변수로 할당
+   1) 사용법:
+      ```{속성이름, 속성이름} = 객체```
+      ```{식별자=속성이름, 식별자=속성이름} = 객체```
+   2) 예시
+      ```javascript
+      const data = {
+         name: '혼자 공부하는 파이썬',
+         price: 18000,
+         publisher: '한빛미디어'
+      }
+      // 객체에서 변수 추출
+      const {name, price} = object // name속성과 price속성을 그대로 꺼낸다
+      console.log(name, price) // 결과: 혼자 공부하는 파이썬 18000
+      const {a=name, b=price} = object
+      console.log(a, b) // 결과: 혼자 공부하는 파이썬 18000
+      ```
+
+4. 배열 전개 연산자
+   1) 얕은 복사
+      ```javascript
+      <script>
+      const pro1 = ['milk', 'bread']
+      const pro2 = pro1
+      pro2.push('potato')
+      pro2.oush('tomato')
+      //출력
+      console.log(pro1)
+      conosole.log(pro2)
+      /*결과
+      (4) ["milk", "bread", "potato", "tomato"]
+      (4) ["milk", "bread", "potato", "tomato"]
+      */
+      </script>
+      ```
+      => 얕은 복사와 같이 배열을 복사할 경우 두 배열이 가리키는 주소는 같다.
+         결국 두 배열은 이름만 다를 뿐 같은 배열이다.
+   2) 깊은 복사
+      * 사용법: \[...배열\] => 전개 연산자 사용
+      * 예시
+        ```javascript
+        <script>
+        const pro1 = ['milk', 'bread']
+        const pro2 = [...pro1]
+        pro2.push('potato')
+        pro2.oush('tomato')
+        //출력
+        console.log(pro1)
+        conosole.log(pro2)
+        /*결과
+        (2) ["milk", "bread"]
+        (4) ["milk", "bread", "potato", "tomato"]
+        */
+        </script>
+        ```
+      * 더 쉽게 자료 추가하기
+        ```javascript
+        const pro1 = ['milk', 'bread']
+        const pro2 = ['potato', ...pro1, 'tomato']
+        ```
+
+5. 객체 전개 연산자
+   1) 얕은 복사
+      ```javascript
+      const 구름 = {
+         이름: '구름',
+         나이: 6,
+         종족: '강아지'
+      }
+      const 별 = 구름
+      별.이름 = '별'
+      별.나이 = 1
+      //출력
+      console.log(JSON.stringify(구름))
+      console.log(JSON.stringify(별))
+      /*결과
+      {"이름": "별", "나이": 1, "종족": "강아지"}
+      {"이름": "별", "나이": 1, "종족": "강아지"}
+      */
+      ```
+      => 배열의 얕은 복사와 같이 두 객체의 결과가 같다.
+   2) 깊은 복사
+      * 사용법: {...객체} => 전개 연산자 사용
+      * 예시
+      ```javascript
+      const 구름 = {
+         이름: '구름',
+         나이: 6,
+         종족: '강아지'
+      }
+      const 별 = {...구름}
+      별.이름 = '별'
+      별.나이 = 1
+      //출력
+      console.log(JSON.stringify(구름))
+      console.log(JSON.stringify(별))
+      /*결과
+      {"이름": "구름", "나이": 6, "종족": "강아지"}
+      {"이름": "별", "나이": 1, "종족": "강아지"}
+      */
+      ```
+      * 자료 추가하기
+      ```javascript
+      const 구름 = {
+         이름: '구름',
+         나이: 6,
+         종족: '강아지'
+      }
+      const 별 = {
+         ...구름,
+         이름: '별',
+         나이: 1,
+         예방접종: true
+      }
+      //출력
+      console.log(JSON.stringify(구름))
+      console.log(JSON.stringify(별))
+      /*결과
+      {"이름": "구름", "나이": 6, "종족": "강아지"}
+      {"이름": "별", "나이": 1, "종족": "강아지", "예방접종": "true"}
+      */
+      ```
+      => 객체는 전개 순서가 중요함. 위 예시에서는 '구름' 객체가 앞에 전개되어
+         뒤에 있는 이름과 나이가 앞에 있는 이름과 나이를 덮어썼음.
+         -> 이름과 나이가 각각 '별', 1살로 바뀜
+         -> 예방접종 여부가 맨 뒤
+      * 만약 '구름' 객체를 뒤에 전개한다면?
+        ```javascript
+        const 구름 = {
+          이름: '구름',
+          나이: 6,
+          종족: '강아지'
+        }
+        const 별 = {
+          이름: '별',
+          나이: 1,
+          예방접종: true,
+          ...구름
+        }
+        //출력
+        console.log(JSON.stringify(구름))
+        console.log(JSON.stringify(별))
+        /*결과
+        {"이름": "구름", "나이": 6, "종족": "강아지"}
+        {"이름": "구름", "나이": 6, "예방접종": "true", "종족": "강아지"}
+        */
+        ```
+        => 다음과 같이 {이름: '별'}과 {나이: 1}이 '구름' 객체로 덮어써짐.
+           따라서 이름과 나이는 다시 '구름'과 6살이 되고, 예방접종 여부가 세 번째 순서가 됨.
