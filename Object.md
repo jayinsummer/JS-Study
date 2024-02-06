@@ -191,4 +191,134 @@
 
 
 6. JSON 객체
-         
+   : 자바스크립트의 객체처럼 자료를 표현하는 방식으로, 각각의 프로그래밍 언어로
+     만든 애플리케이션들이 데이터를 교환할 때 사용
+   1) JSON 형식의 규칙
+      * 값을 표현할 때 문자열, 숫자, 불 자료형만 사용 가능(함수 등은 사용 불가)
+      * 문자열은 반드시 큰따옴표로 만들 것
+      * key에도 반드시 따옴표를 붙여야함
+   2) JSON.stringify(): JS객체 -> JSON 문자열
+      * 예시
+        ```javascript
+        //자료 생성
+        const data = [{
+           name: '혼자 공부하는 파이썬',
+           price: 18000,
+           publisher: '한빛미디어'
+        }, {
+           name: 'HTML5 웹 프로그래밍 입문',
+           price: 26000,
+           publisher: '한빛아카데미'
+        }]
+        //자료를 JSON으로 변환
+        console.log(JSON.stringify(data))
+        console.log(JSON.stringify(data, null, 2))
+        /*2번째 매개변수의 의미: 객체에서 어떤 속성만 선택해서 추출하고 싶을 때 사용함.
+        그러나 거의 사용하지 않기에 일반적으로 null을 넣음*/
+        //3번째 매개변수의 의미: 들여쓰기 n칸. 여기서는 2칸
+        ```
+        * 결과
+          ```
+          [{"name":"혼자 공부하는 파이썬","price":18000,"publisher":"한빛미디어"},{"name":"HTML5 웹 프로그래밍 입 
+          문","price":26000,"publisher":"한빛아카데미"}]
+          //두번째는 들여쓰기 2칸 추가됨
+          [
+            {
+              "name":"혼자 공부하는 파이썬",
+              "price":18000,
+              "publisher":"한빛미디어"
+            },
+            {
+              "name":"HTML5 웹 프로그래밍 입문",
+              "price":26000,
+              "publisher":"한빛아카데미"
+            }
+          ]
+          ```
+   3) JSON.parse(): JSON 문자열 -> JS 객체
+      * 예시
+        ```javascript
+        //자료 생성
+        const data = [{
+           name: '혼자 공부하는 파이썬',
+           price: 18000,
+           publisher: '한빛미디어'
+        }, {
+           name: 'HTML5 웹 프로그래밍 입문',
+           price: 26000,
+           publisher: '한빛아카데미'
+        }]
+        //자료를 JSON으로 변환
+        const json = JSON.stringify(data)
+        console.log(json)
+        //JSON 문자열을 다시 자바스크립트 객체로 변환
+        console.log(JSON.parse(json))
+      ```
+      * 결과
+      ```[{"name":"혼자 공부하는 파이썬","price":18000,"publisher":"한빛미디어"},{"name":"HTML5 웹 프로그래밍 입 
+      문","price":26000,"publisher":"한빛아카데미"}]
+      Array(2)
+      0: {name: '혼자 공부하는 파이썬', price: 18000, publisher: '한빛미디어'}
+      1: {name: 'HTML5 웹 프로그래밍 입문', price: 26000, publisher: '한빛아카데미'}
+      length: 2
+      __proto__: Array(0)
+      ```
+  => JSON의 메소드는 이렇게 JSON.stringify(), JSON.parse() 2가지뿐.
+
+6. Math 객체
+   1) Math.random(): 0 이상, 1미만의 숫자 랜덤 생성
+      * 예시
+        ```javascript
+        const num = Math.random()
+        console.log(num) // 0 이상 1 미만 숫자 랜덤 생성
+        console.log(num * 10) // 0 이상 10 미만 숫자 랜덤 생성
+        console.log(num * 50 - 25) // -25 이상 25 미만 숫자 랜덤 생성
+        ```
+   => 이외에도 Math.PI, Math.E 등 다양한 속성 속성 및 메소드 존재
+
+7. 외부 script 파일 읽어들이기
+   : 프로그램의 규모가 커지만 파일을 분리하는 게 좋음. 이런 상황에서 사용하는 기법
+   1) 예시
+      ```html
+      <!DOCTYPE html>
+      <html>
+      <head>
+         <title></title>
+         <script src = "test.js"></script>
+      </head>
+      </html>
+      ```
+
+8. Lodash 라이브러리: 다른 사람이 만든 외부 JS파일 사용하기
+   * lodash 라이브러리 다운로드 페이지: https://lodash.com
+   * Lodash 라이브러리의 문서: https://lodash.com/docs/4.17.15
+   1) 예시: sortBy()
+      -> 지정한 기준을 기반으로 배열 정렬 후 리턴하는 메소드
+      ```javascript
+      <script src = "https://cdn.jsdelivr.net/npm/lidash@4.17.21/lodash.min.js">
+      </script>
+      <script>
+        // 데이터 생성
+        const data = [{
+           name: '혼자 공부하는 파이썬',
+           price: 18000,
+           publisher: '한빛미디어'
+        }, {
+           name: 'HTML5 웹 프로그래밍 입문',
+           price: 26000,
+           publisher: '한빛아카데미'
+        }, {
+           name: '머신러닝 딥러닝 실전 개발 입문',
+           price: 30000,
+           publisher: '위키북스'
+        }, {
+           name: '딥러닝을 위한 수학',
+           price: 25000,
+           publisher: '위키북스'
+        }]
+        // 가격으로 정렬한 뒤 출력
+        const output = _.sortBy(books, (book) => book.price)
+        console.log(JSON.stringify(output, null, 2))
+        // 가격이 낮은 순으로 출력된다
+      </script>
+      ```
